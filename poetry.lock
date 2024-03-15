@@ -270,6 +270,23 @@ files = [
 ]
 
 [[package]]
+name = "dash-cytoscape"
+version = "1.0.0"
+description = "A Component Library for Dash aimed at facilitating network visualization in Python, wrapped around Cytoscape.js"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "dash_cytoscape-1.0.0-py3-none-any.whl", hash = "sha256:a6e240679e0e3ad20f5ba609b0dadfda2d57b3b1cf8976c7dca9173c4120c748"},
+    {file = "dash_cytoscape-1.0.0.tar.gz", hash = "sha256:0b1a8402005a4e2e7104edf28399f1e340ad7d98d8106dec280edb31c9b8dafd"},
+]
+
+[package.dependencies]
+dash = "*"
+
+[package.extras]
+leaflet = ["dash-leaflet (>=1.0.10)"]
+
+[[package]]
 name = "dash-extensions"
 version = "1.0.14"
 description = "Extensions for Plotly Dash."
@@ -1336,4 +1353,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "8c446ec2a1ab6b22220993af2a5f2df2d20badf484ee8bc8d2e31aed6a10e7ef"
+content-hash = "773889f43827f39307a173cf4c4f14c99377b6110bdb4eae31d56e51e9576601"

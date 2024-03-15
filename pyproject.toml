@@ -21,6 +21,7 @@ python-dotenv = "^1.0.1"
 networkx = "^3.2.1"
 plotly = "^5.20.0"
 scikit-learn = "^1.4.1.post1"
+dash-cytoscape = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.3.0"
@@ -34,12 +35,6 @@ pytest = "^8.1.1"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
 
 
 [tool.black]
