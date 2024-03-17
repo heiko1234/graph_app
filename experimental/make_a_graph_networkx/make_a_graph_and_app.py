@@ -27,7 +27,13 @@ import dash
 
 # Create an empty graph with no nodes and no edges
 
-G = nx.Graph()
+# undirected graph
+# G = nx.Graph()
+
+
+# directed graph
+G = nx.DiGraph()
+
 
 
 
@@ -147,6 +153,47 @@ G.add_edge("Uvinul_R102", "R102", classname="contains")
 
 
 
+# # use cypher query to find all sensors connected to R101 in the Uvinul process and print the result
+
+# # print(nx.single_source_shortest_path(G, "R101"))
+
+
+
+# cypher query to get all sensors connected to R101 in the Tinuvin Process, Tinuvin_R101
+
+print(nx.single_source_shortest_path(G, "Tinuvin_R101"))
+
+
+# print([node for node in nx.single_source_shortest_path(G, "Tinuvin_R101") if G.nodes[node]["classname"] == "sensor"])
+
+
+
+
+# cypher query to get all nodes of classname = sensor and directly connected to node R101 which is of classname = equipment and connected to node Tinuvin which is of classname = recipe but no nodes that are connected to Reactor R102
+
+print([node for node in nx.single_source_shortest_path(G, "R101") if G.nodes[node]["classname"] == "sensor" and "R102" not in nx.single_source_shortest_path(G, "R101")])
+
+# ['T101', 'P101', 'F101', 'L101']
+
+
+# give me all nodes connected to node R101, classname = equipment but not to R102, and the nodes should be of classname = sensor, and connected to the process node Tinuvin, and the node of R101_Tinuvin, classname = Topology
+
+# give me all nodes in distance 1 from R101
+
+# give me all nodes in distance 2 from R101
+
+# computer give me all nodes connected to R101 in the distance of 1
+
+
+
+
+
+
+
+sub_G = G
+
+
+
 
 
 
@@ -168,7 +215,7 @@ from dash import html
 
 # computer transfer graph to cytoscape format
 
-elements = nx.readwrite.json_graph.cytoscape_data(G)['elements']
+elements = nx.readwrite.json_graph.cytoscape_data(sub_G)['elements']
 
 
 
