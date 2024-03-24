@@ -161,7 +161,7 @@ G.add_edge("Uvinul_R102", "R102", classname="contains")
 
 # cypher query to get all sensors connected to R101 in the Tinuvin Process, Tinuvin_R101
 
-print(nx.single_source_shortest_path(G, "Tinuvin_R101"))
+# print(nx.single_source_shortest_path(G, "Tinuvin_R101"))
 
 
 # print([node for node in nx.single_source_shortest_path(G, "Tinuvin_R101") if G.nodes[node]["classname"] == "sensor"])
@@ -171,7 +171,7 @@ print(nx.single_source_shortest_path(G, "Tinuvin_R101"))
 
 # cypher query to get all nodes of classname = sensor and directly connected to node R101 which is of classname = equipment and connected to node Tinuvin which is of classname = recipe but no nodes that are connected to Reactor R102
 
-print([node for node in nx.single_source_shortest_path(G, "R101") if G.nodes[node]["classname"] == "sensor" and "R102" not in nx.single_source_shortest_path(G, "R101")])
+# print([node for node in nx.single_source_shortest_path(G, "R101") if G.nodes[node]["classname"] == "sensor" and "R102" not in nx.single_source_shortest_path(G, "R101")])
 
 # ['T101', 'P101', 'F101', 'L101']
 
@@ -193,9 +193,43 @@ print([node for node in nx.single_source_shortest_path(G, "R101") if G.nodes[nod
 sub_G = G
 
 
+# computer, give me information of node "R101", classname = equipment
+
+# print(sub_G.nodes["R101"])
+
+# computer, give me information of node "R101", classname = equipment, and all nodes connected to it
+
+print(sub_G["R101"])
+
+# >>> print(sub_G["R101"])
+# {'T101': {'classname': 'contains'}, 'P101': {'classname': 'contains'}, 'F101': {'classname': 'contains'}, 'L101': {'classname': 'contains'}}
+
+
+print(sub_G["Uvinul"])
+# >>> print(sub_G["Uvinul"])
+# {'Uvinul_R101': {'classname': 'contains'}, 'Uvinul_R102': {'classname': 'contains'}}
+
+print(sub_G["Tinuvin"])
+# >>> print(sub_G["Tinuvin"])
+# {'Tinuvin_R101': {'classname': 'contains'}, 'Tinuvin_R102': {'classname': 'contains'}}
 
 
 
+# computer, give me direction of edges of type "contains" connected to node "Tinuvin" 
+
+print(sub_G["Tinuvin"])
+
+
+# computer, give me a for loop to give me all nodes type sensor connected to the process node Tinuvin
+
+for node in sub_G["Tinuvin"]:
+    if sub_G["Tinuvin"][node]["classname"] == "contains":
+        print(node)
+
+
+# computer, give me a for loop to give me all reactor nodes connected to the process node Tinuvin
+
+# for node in sub_G["Tinuvin"]:
 
 
 
@@ -221,7 +255,7 @@ elements = nx.readwrite.json_graph.cytoscape_data(sub_G)['elements']
 
 base_figure_stylesheet = [
     {
-        "selector": "node",
+        "selector": "node['areakey']",
         "style": {
             "label": "data(label)",
             "text-wrap": "wrap",
@@ -243,6 +277,7 @@ base_figure_stylesheet = [
         "selector": "node[classname = 'areakey']",
         "style": {
             "background-color": "blue",
+            "color": "white",
         }
     },
     {
@@ -250,6 +285,13 @@ base_figure_stylesheet = [
         "style": {
             "background-color": "green",
             "color": "white",
+        }
+    },
+    {
+        "selector": "node[classname = 'topology']",
+        "style": {
+            "background-color": "red",
+            "color": "black",
         }
     },
     {
@@ -269,6 +311,7 @@ base_figure_stylesheet = [
             "text-border-opacity": "0.8",
         }
     },
+    # computer, make edges of type "contains" blue and shortesst distance possible in graph layout
     {
         "selector": "edge[classname = 'contains']",
         "style": {
